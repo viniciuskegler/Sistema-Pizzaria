@@ -18,9 +18,12 @@ public class GeraTabela {
 
     public static void main(String[] args) {
 //        Faker falso = new Faker();
-//        for (int i = 0; i < 10; i++) {
+////        for (int i = 0; i < 10; i++) {
 //            System.out.println(falso.finance().creditCard(CreditCardType.MASTERCARD));
-//        }
+//            System.out.println(falso.address().city());
+//            System.out.println(falso.address().cityName());
+//            System.out.println(falso.address().fullAddress());
+////        }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzaria_pu");
         emf.close();
     }

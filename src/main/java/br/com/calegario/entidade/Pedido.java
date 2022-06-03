@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -38,6 +40,7 @@ public class Pedido implements Serializable {
     private BigDecimal valorTotal;
     
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date dt_pedido;
     
     @ManyToOne
