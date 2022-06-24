@@ -48,6 +48,35 @@ public class ClienteDaoImplTest {
         assertNotNull(cliente.getId());
     }
 
+    @Test
+    public void testAlterar() {
+        System.out.println("alterar");
+        buscarClienteBd();
+        cliente.setNome(cliente.getNome() + falso.lorem().word());
+        cliente.setEmail(cliente.getEmail() + falso.lorem().word());
+        sessao = HibernateUtil.abrirConexao();
+        clienteDao.salvarOuAlterar(cliente, sessao);
+        sessao.close();
+        
+        sessao = HibernateUtil.abrirConexao();
+        Cliente clienteAlt = clienteDao.pesquisarPorId(cliente.getId(), sessao);
+        sessao.close();
+        
+        assertTrue(cliente.getNome().equals(clienteAlt.getNome()) && cliente.getEmail().equals(clienteAlt.getEmail()));
+        
+    }
+
+    @Test
+    public void testExcluir(){
+        System.out.println("excluir");
+        buscarClienteBd();
+        sessao = HibernateUtil.abrirConexao();
+        clienteDao.excluir(cliente, sessao);
+        cliente = clienteDao.pesquisarPorId(cliente.getId(), sessao);
+        sessao.close();
+        assertNull(cliente);
+    }
+    
     //@Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");

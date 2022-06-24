@@ -8,6 +8,7 @@ package br.com.calegario.entidade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,22 +29,22 @@ import javax.persistence.TemporalType;
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private Integer numero;
-    
+
     @Column(nullable = false)
     private BigDecimal valorTotal;
-    
+
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dt_pedido;
-    
-    @ManyToOne
+
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_pessoa")
     private Cliente cliente;
 
@@ -96,9 +97,7 @@ public class Pedido implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -123,5 +122,5 @@ public class Pedido implements Serializable {
     public String toString() {
         return "br.com.calegario.entidade.Pedido[ id=" + id + " ]";
     }
-    
+
 }

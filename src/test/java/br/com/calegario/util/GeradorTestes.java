@@ -5,6 +5,7 @@
  */
 package br.com.calegario.util;
 
+import br.com.calegario.entidade.Cliente;
 import br.com.calegario.entidade.Endereco;
 import com.github.javafaker.Faker;
 
@@ -18,6 +19,11 @@ public class GeradorTestes {
     public static Endereco gerarEndereco(){
         Faker falso = new Faker();
         return new Endereco(null, falso.address().streetName(), falso.number().digits(4), falso.address().streetName(), falso.address().cityName(), "Casa", falso.lorem().sentence());
+    }
+    
+    public static Cliente gerarcliente(){
+        Faker falso = new Faker();
+        return new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), falso.phoneNumber().cellPhone());
     }
     
 }

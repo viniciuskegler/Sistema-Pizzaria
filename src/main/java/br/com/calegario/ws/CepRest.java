@@ -8,6 +8,8 @@ package br.com.calegario.ws;
 
 import br.com.calegario.entidade.EnderecoDTO;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -30,7 +32,11 @@ public class CepRest {
     }
     
     public EnderecoDTO pesquisaCep(String cep){
-        return webResource.path(cep).path("/json").get(EnderecoDTO.class);
+        try {
+            return webResource.path(cep).path("/json").get(EnderecoDTO.class);
+        } catch (UniformInterfaceException | ClientHandlerException ue) {
+            System.out.println(ue.getMessage());
+            return null;
+        }
     }
-
 }

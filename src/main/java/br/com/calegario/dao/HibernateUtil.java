@@ -11,6 +11,7 @@ import br.com.calegario.entidade.Endereco;
 import br.com.calegario.entidade.Fornecedor;
 import br.com.calegario.entidade.Pedido;
 import br.com.calegario.entidade.Pessoa;
+import br.com.calegario.entidade.Usuario;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -33,6 +34,7 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Pedido.class);
             cfg.addAnnotatedClass(Cliente.class);
             cfg.addAnnotatedClass(Fornecedor.class);
+            cfg.addAnnotatedClass(Usuario.class);
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().
                     applySettings(cfg.getProperties());

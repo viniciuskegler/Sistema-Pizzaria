@@ -1,6 +1,5 @@
 package br.com.calegario.entidade;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
@@ -16,7 +15,7 @@ public class Cliente extends Pessoa {
     @Column(nullable = false)
     private boolean cupom;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
     
     public Cliente() {

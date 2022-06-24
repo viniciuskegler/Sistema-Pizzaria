@@ -18,7 +18,6 @@ public class PesquisarCep extends javax.swing.JFrame {
     
     public PesquisarCep() {
         initComponents();
-        this.pnPesquisa.setVisible(false);
     }
 
     /**
@@ -31,21 +30,18 @@ public class PesquisarCep extends javax.swing.JFrame {
     private void initComponents() {
 
         lbTitulo = new javax.swing.JLabel();
-        varCep = new javax.swing.JTextField();
-        lbCep = new javax.swing.JLabel();
-        pnPesquisa = new javax.swing.JPanel();
-        lbMostrarCep = new javax.swing.JLabel();
-        lbMostrarLogra = new javax.swing.JLabel();
-        lbMostrarCompl = new javax.swing.JLabel();
-        lbMostrarBairro = new javax.swing.JLabel();
-        lbMostrarCidade = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
         lbMostrarUf = new javax.swing.JLabel();
-        lbLograResult = new javax.swing.JLabel();
-        lbCepResult = new javax.swing.JLabel();
-        lbComplResult = new javax.swing.JLabel();
-        lbBairroResult = new javax.swing.JLabel();
-        lbCidResult = new javax.swing.JLabel();
-        lbUfResult = new javax.swing.JLabel();
+        lbMostrarCidade = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        lbMostrarBairro = new javax.swing.JLabel();
+        lbMostrarCompl = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        lbMostrarLogra = new javax.swing.JLabel();
+        lbMostrarCep = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         btBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,90 +49,25 @@ public class PesquisarCep extends javax.swing.JFrame {
 
         lbTitulo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Pesquisa Cep");
-
-        varCep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        lbCep.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbCep.setText("CEP:");
-
-        lbMostrarCep.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbMostrarCep.setText("CEP:");
-
-        lbMostrarLogra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbMostrarLogra.setText("Logradouro:");
-
-        lbMostrarCompl.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbMostrarCompl.setText("Complemento:");
-
-        lbMostrarBairro.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbMostrarBairro.setText("Bairro:");
-
-        lbMostrarCidade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lbMostrarCidade.setText("Cidade:");
+        lbTitulo.setText("Cadastrar Cliente");
 
         lbMostrarUf.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lbMostrarUf.setText("UF:");
 
-        lbLograResult.setMaximumSize(null);
+        lbMostrarCidade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbMostrarCidade.setText("Cidade:");
 
-        lbComplResult.setMaximumSize(null);
+        lbMostrarBairro.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbMostrarBairro.setText("Bairro:");
 
-        lbBairroResult.setMaximumSize(null);
+        lbMostrarCompl.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbMostrarCompl.setText("Complemento:");
 
-        lbCidResult.setMaximumSize(null);
+        lbMostrarLogra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbMostrarLogra.setText("Logradouro:");
 
-        javax.swing.GroupLayout pnPesquisaLayout = new javax.swing.GroupLayout(pnPesquisa);
-        pnPesquisa.setLayout(pnPesquisaLayout);
-        pnPesquisaLayout.setHorizontalGroup(
-            pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnPesquisaLayout.createSequentialGroup()
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbMostrarCep)
-                    .addComponent(lbMostrarLogra)
-                    .addComponent(lbMostrarUf)
-                    .addComponent(lbMostrarCidade)
-                    .addComponent(lbMostrarBairro)
-                    .addComponent(lbMostrarCompl))
-                .addGap(18, 18, 18)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbLograResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbComplResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbBairroResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCidResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbUfResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCepResult, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 72, Short.MAX_VALUE))
-        );
-        pnPesquisaLayout.setVerticalGroup(
-            pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnPesquisaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbMostrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCepResult, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMostrarLogra)
-                    .addComponent(lbLograResult, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMostrarCompl)
-                    .addComponent(lbComplResult, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMostrarBairro)
-                    .addComponent(lbBairroResult, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMostrarCidade)
-                    .addComponent(lbCidResult, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMostrarUf)
-                    .addComponent(lbUfResult, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lbMostrarCep.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbMostrarCep.setText("CEP:");
 
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,33 +80,60 @@ public class PesquisarCep extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbMostrarCep)
+                    .addComponent(lbMostrarLogra)
+                    .addComponent(lbMostrarUf)
+                    .addComponent(lbMostrarCidade)
+                    .addComponent(lbMostrarBairro)
+                    .addComponent(lbMostrarCompl))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(lbCep)
-                        .addGap(30, 30, 30)
-                        .addComponent(varCep, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jTextField4)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btBuscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(pnPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(varCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCep, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar))
+                    .addComponent(btBuscar)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbMostrarCep, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMostrarLogra)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMostrarCompl)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(pnPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMostrarBairro)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMostrarCidade)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbMostrarUf)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -183,24 +141,14 @@ public class PesquisarCep extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        String cep = this.varCep.getText().trim();
-        cepRest = new CepRest();
-        EnderecoDTO end = cepRest.pesquisaCep(cep);
-        this.trocarValores(end);
+//        String cep = this.varCep.getText().trim();
+//        cepRest = new CepRest();
+//        EnderecoDTO end = cepRest.pesquisaCep(cep);
+//        this.trocarValores(end);
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void trocarValores(EnderecoDTO endereco){
-        this.lbCepResult.setText(endereco.getCep());
-        this.lbLograResult.setText(endereco.getLogradouro());
-        if(!endereco.getComplemento().isEmpty()){
-            this.lbComplResult.setText(endereco.getComplemento());
-        }else{
-            this.lbComplResult.setText("Sem complemento");
-        }
-        this.lbBairroResult.setText(endereco.getBairro());
-        this.lbCidResult.setText(endereco.getLocalidade());
-        this.lbUfResult.setText(endereco.getUf());
-        this.pnPesquisa.setVisible(true);
+
     }
     
     /**
@@ -240,12 +188,12 @@ public class PesquisarCep extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
-    private javax.swing.JLabel lbBairroResult;
-    private javax.swing.JLabel lbCep;
-    private javax.swing.JLabel lbCepResult;
-    private javax.swing.JLabel lbCidResult;
-    private javax.swing.JLabel lbComplResult;
-    private javax.swing.JLabel lbLograResult;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel lbMostrarBairro;
     private javax.swing.JLabel lbMostrarCep;
     private javax.swing.JLabel lbMostrarCidade;
@@ -253,8 +201,5 @@ public class PesquisarCep extends javax.swing.JFrame {
     private javax.swing.JLabel lbMostrarLogra;
     private javax.swing.JLabel lbMostrarUf;
     private javax.swing.JLabel lbTitulo;
-    private javax.swing.JLabel lbUfResult;
-    private javax.swing.JPanel pnPesquisa;
-    private javax.swing.JTextField varCep;
     // End of variables declaration//GEN-END:variables
 }
