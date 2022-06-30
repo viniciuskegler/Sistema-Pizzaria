@@ -31,7 +31,7 @@ public class CepRest {
         webResource = client.resource("https://viacep.com.br/ws/");
     }
     
-    public EnderecoDTO pesquisaCep(String cep){
+    public EnderecoDTO pesquisarCep(String cep){
         try {
             return webResource.path(cep).path("/json").get(EnderecoDTO.class);
         } catch (UniformInterfaceException | ClientHandlerException ue) {

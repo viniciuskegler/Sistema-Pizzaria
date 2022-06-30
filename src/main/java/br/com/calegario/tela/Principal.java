@@ -14,14 +14,15 @@ import br.com.calegario.entidade.Usuario;
 public class Principal extends javax.swing.JFrame {
 
     private Usuario usuarioLogado;
-    
+
     public Principal() {
         initComponents();
     }
-    
-     public Principal(Usuario usuarioLogado) {
+
+    public Principal(Usuario usuarioLogado) {
         initComponents();
         this.usuarioLogado = usuarioLogado;
+        this.lbmostrarnome.setText(usuarioLogado.getNome());
     }
 
     /**
@@ -34,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         lbTitulo = new javax.swing.JLabel();
+        lbmostrarnome = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mnCliente = new javax.swing.JMenu();
         mnClienteCad = new javax.swing.JMenuItem();
@@ -51,6 +53,11 @@ public class Principal extends javax.swing.JFrame {
         mnCliente.setText("Cliente");
 
         mnClienteCad.setText("Cadastrar");
+        mnClienteCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnClienteCadActionPerformed(evt);
+            }
+        });
         mnCliente.add(mnClienteCad);
 
         mnClientePesq.setText("Pesquisar");
@@ -80,12 +87,18 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(lbmostrarnome, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 229, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbmostrarnome, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 211, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +108,11 @@ public class Principal extends javax.swing.JFrame {
     private void mnClientePesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnClientePesqActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnClientePesqActionPerformed
+
+    private void mnClienteCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnClienteCadActionPerformed
+        new ClienteCadastro().setVisible(true);
+        System.out.println("asodkjfasogjaogjaoigja");
+    }//GEN-LAST:event_mnClienteCadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +152,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel lbmostrarnome;
     private javax.swing.JMenu mnCliente;
     private javax.swing.JMenuItem mnClienteCad;
     private javax.swing.JMenuItem mnClientePesq;

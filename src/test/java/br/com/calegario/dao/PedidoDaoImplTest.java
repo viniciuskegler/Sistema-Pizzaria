@@ -37,7 +37,7 @@ public class PedidoDaoImplTest {
     public void testSalvar() {
         System.out.println("salvar");
         pedido = new Pedido(null, faker.number().numberBetween(1, 99999999), BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))), new Date());
-        Cliente cliente = GeradorTestes.gerarcliente();
+        Cliente cliente = GeradorTestes.gerarCliente();
         pedido.setCliente(cliente);
         List<Pedido> pedidos = new ArrayList<>();
         pedidos.add(pedido);

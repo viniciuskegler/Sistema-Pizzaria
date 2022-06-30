@@ -66,7 +66,7 @@ public class ClienteDaoImplTest {
         
     }
 
-    @Test
+//    @Test
     public void testExcluir(){
         System.out.println("excluir");
         buscarClienteBd();
@@ -77,7 +77,7 @@ public class ClienteDaoImplTest {
         assertNull(cliente);
     }
     
-    //@Test
+    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarClienteBd();
