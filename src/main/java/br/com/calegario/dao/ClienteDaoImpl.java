@@ -20,7 +20,7 @@ public class ClienteDaoImpl extends BaseDaoImpl<Cliente, Long> implements Client
 
     @Override
     public List<Cliente> pesquisarPorNome(String nome, Session sessao) {
-        return sessao.createQuery("from Cliente c join fetch c.enderecos where c.nome like :nomeHql").setParameter("nomeHql", "%" + nome + "%").getResultList();
+        return sessao.createQuery("select distinct (c) from Cliente c join fetch c.enderecos where c.nome like :nomeHql").setParameter("nomeHql", "%" + nome + "%").getResultList();
     }
 
 }

@@ -28,7 +28,7 @@ public class FornecedorDaoImplTest {
         fornecedorDao = new FornecedorDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvar(){
         System.out.println("salvar");
         sessao = HibernateUtil.abrirConexao();
@@ -36,13 +36,13 @@ public class FornecedorDaoImplTest {
         
     }
     
-    @Test
+//    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
 
     }
 
-    @Test
+//    @Test
     public void testPesquisarPorNome() {
         System.out.println("pesquisarPorNome");
 

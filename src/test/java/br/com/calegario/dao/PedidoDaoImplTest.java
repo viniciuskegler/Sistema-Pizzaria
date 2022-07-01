@@ -33,7 +33,7 @@ public class PedidoDaoImplTest {
         faker = new Faker();
     }
 
-    @Test
+//    @Test
     public void testSalvar() {
         System.out.println("salvar");
         pedido = new Pedido(null, faker.number().numberBetween(1, 99999999), BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))), new Date());
@@ -48,7 +48,7 @@ public class PedidoDaoImplTest {
         assertNotNull(pedido.getId());
     }
 
-    @Test
+//    @Test
     public void testAlterar(){
         System.out.println("alterar");
         buscarPedidoBd();
@@ -77,7 +77,7 @@ public class PedidoDaoImplTest {
     
     }
     
-    @Test
+//    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarPedidoBd();
@@ -88,7 +88,7 @@ public class PedidoDaoImplTest {
 
     }
 
-    @Test
+//    @Test
     public void testPesquisarPorNumero() {
         System.out.println("pesquisarPorNumero");
         buscarPedidoBd();

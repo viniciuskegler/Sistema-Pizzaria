@@ -8,6 +8,7 @@ package br.com.calegario.dao;
 import br.com.calegario.entidade.Cliente;
 import br.com.calegario.entidade.Endereco;
 import br.com.calegario.util.GeradorTestes;
+import br.com.calegario.util.GeradorUtil;
 import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ClienteDaoImplTest {
     public void testSalvar() {
         System.out.println("salvar");
 
-        cliente = new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), falso.phoneNumber().cellPhone());
+        cliente = new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), GeradorUtil.gerarTelefoneFixo());
         List<Endereco> enderecos = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             enderecos.add(GeradorTestes.gerarEndereco());
@@ -48,7 +49,7 @@ public class ClienteDaoImplTest {
         assertNotNull(cliente.getId());
     }
 
-    @Test
+//    @Test
     public void testAlterar() {
         System.out.println("alterar");
         buscarClienteBd();
@@ -77,7 +78,7 @@ public class ClienteDaoImplTest {
         assertNull(cliente);
     }
     
-    @Test
+//    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarClienteBd();
@@ -88,7 +89,7 @@ public class ClienteDaoImplTest {
 
     }
 
-    @Test
+//    @Test
     public void testPesquisarPorNome() {
         System.out.println("pesquisarPorNome");
         buscarClienteBd();

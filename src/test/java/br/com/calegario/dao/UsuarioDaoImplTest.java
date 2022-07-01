@@ -28,7 +28,7 @@ public class UsuarioDaoImplTest {
         faker = new Faker();
     }
 
-    @Test
+//    @Test
     public void testSalvar() {
         System.out.println("salvar");
         usuario = new Usuario(null, faker.name().fullName(), faker.internet().emailAddress(), faker.lorem().word());
@@ -39,7 +39,7 @@ public class UsuarioDaoImplTest {
 
     }
 
-    @Test
+//    @Test
     public void testAlterar(){
         System.out.println("alterar");
         buscarUsuarioBd();
@@ -67,7 +67,7 @@ public class UsuarioDaoImplTest {
         assertNull(usuario);
     }
     
-    @Test
+//    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarUsuarioBd();
@@ -77,7 +77,7 @@ public class UsuarioDaoImplTest {
         assertNotNull(usuario.getId());
     }
 
-    @Test
+//    @Test
     public void testPesquisarPorLogin(){
         System.out.println("pesquisarPorLogin");
         buscarUsuarioBd();
