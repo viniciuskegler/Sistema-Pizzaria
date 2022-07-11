@@ -33,7 +33,7 @@ public class PedidoDaoImplTest {
         faker = new Faker();
     }
 
-//    @Test
+    @Test
     public void testSalvar() {
         System.out.println("salvar");
         pedido = new Pedido(null, faker.number().numberBetween(1, 99999999), BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))), new Date());
@@ -97,7 +97,17 @@ public class PedidoDaoImplTest {
         sessao.close();
         assertNotNull(pedido);
     }
-
+    
+    @Test
+    public void testPesquisarUltimoNumero(){
+        System.out.println("pesquisarUltimoNumero");
+        buscarPedidoBd();
+        sessao = HibernateUtil.abrirConexao();
+        Integer maiorNumero = pedidoDao.pesquisarUltimoNumero(sessao);
+        sessao.close();
+        assertNotNull(maiorNumero);
+    }
+    
     private Pedido buscarPedidoBd() {
         sessao = HibernateUtil.abrirConexao();
         List<Pedido> pedidos = sessao.createQuery("From Pedido P").getResultList();

@@ -98,5 +98,5 @@
             <version>2.3</version>
         </dependency>
     </dependencies>
-    <name>pizzaria</name>
+    <name>Sistema pizzaria</name>
 </project>

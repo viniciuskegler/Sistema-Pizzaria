@@ -16,4 +16,6 @@ import org.hibernate.Session;
 public interface PedidoDao extends BaseDao<Pedido, Long> {
 
     Pedido pesquisarPorNumero(int numero, Session sessao);
+
+    Integer pesquisarUltimoNumero(Session sessao);
 }

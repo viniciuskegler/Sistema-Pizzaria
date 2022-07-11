@@ -10,8 +10,6 @@ import br.com.calegario.dao.UsuarioDao;
 import br.com.calegario.dao.UsuarioDaoImpl;
 import br.com.calegario.entidade.Usuario;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -20,7 +18,7 @@ import org.hibernate.Session;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    private UsuarioDao usuarioDao;
+    private final UsuarioDao usuarioDao;
     private Session sessao;
     private String login;
     private String senha;
@@ -116,11 +114,17 @@ public class TelaLogin extends javax.swing.JFrame {
             sessao = HibernateUtil.abrirConexao();
             try {
                 Usuario usuario = usuarioDao.pesquisarPorLogin(login, sessao);
-                JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
-                this.dispose();
-                new Principal(usuario).setVisible(true);
+                if (usuario.getSenha().equals(String.valueOf(varSenha.getPassword()))) {
+                    JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+                    this.dispose();
+                    new Principal(usuario).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login ou senha incorretos!");
+                    usuario = null;
+                    varSenha.setText("");
+                }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Login ou senha incorretos!");
+                JOptionPane.showMessageDialog(null, "Erro ao efetuar conexao!" + e.getMessage());
                 varSenha.setText("");
             } finally {
                 sessao.close();

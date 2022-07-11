@@ -7,13 +7,23 @@ package br.com.calegario.dao;
 
 import br.com.calegario.entidade.Cliente;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
  *
  * @author vinicius.kegler
  */
-public interface ClienteDao extends BaseDao<Cliente, Long>{
-    
+public interface ClienteDao extends BaseDao<Cliente, Long> {
+
     List<Cliente> pesquisarPorNome(String nome, Session sessao);
+
+    Cliente pesquisarPorTelefone(String telefone,
+            Session sessao) throws HibernateException;
+
+    boolean verificarEmailCadastrado(String email, Session sessao)
+            throws HibernateException;
+
+    boolean verificarTelefoneCadastrado(String telefone, Session sessao)
+            throws HibernateException;
 }

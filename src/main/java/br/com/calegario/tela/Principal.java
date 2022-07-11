@@ -5,7 +5,11 @@
  */
 package br.com.calegario.tela;
 
+import br.com.calegario.dao.HibernateUtil;
+import br.com.calegario.dao.PedidoDao;
+import br.com.calegario.dao.PedidoDaoImpl;
 import br.com.calegario.entidade.Usuario;
+import org.hibernate.Session;
 
 /**
  *
@@ -14,6 +18,8 @@ import br.com.calegario.entidade.Usuario;
 public class Principal extends javax.swing.JFrame {
 
     private Usuario usuarioLogado;
+    private PedidoDao pedidoDao;
+    private Session session;
 
     public Principal() {
         initComponents();
@@ -22,7 +28,15 @@ public class Principal extends javax.swing.JFrame {
     public Principal(Usuario usuarioLogado) {
         initComponents();
         this.usuarioLogado = usuarioLogado;
-        this.lbmostrarnome.setText(usuarioLogado.getNome());
+        pedidoDao = new PedidoDaoImpl();
+        lb_mostrarTotalPedidos.setText(String.valueOf(atualizarContador()));
+    }
+
+    private Integer atualizarContador() {
+        session = HibernateUtil.abrirConexao();     
+        Integer numero = pedidoDao.pesquisarUltimoNumero(session);
+        session.close();
+        return numero;
     }
 
     /**
@@ -34,8 +48,13 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbTitulo = new javax.swing.JLabel();
-        lbmostrarnome = new javax.swing.JLabel();
+        lb_titulo = new javax.swing.JLabel();
+        lb_totalPedidos = new javax.swing.JLabel();
+        lb_mostrarTotalPedidos = new javax.swing.JLabel();
+        btIconeCliente = new javax.swing.JButton();
+        btIconePedido = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lb_pedido = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         mnCliente = new javax.swing.JMenu();
         mnClienteCad = new javax.swing.JMenuItem();
@@ -46,9 +65,37 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbTitulo.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Pizzaria");
+        lb_titulo.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo.setText("Pizzaria");
+
+        lb_totalPedidos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_totalPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_totalPedidos.setText("Total de pedidos");
+        lb_totalPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lb_mostrarTotalPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_mostrarTotalPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        btIconeCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/cliente.png"))); // NOI18N
+        btIconeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIconeClienteActionPerformed(evt);
+            }
+        });
+
+        btIconePedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/pizza.png"))); // NOI18N
+        btIconePedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIconePedidoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setText("Adicionar Cliente");
+
+        lb_pedido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lb_pedido.setText("Adicionar Pedido");
 
         mnCliente.setText("Cliente");
 
@@ -73,6 +120,11 @@ public class Principal extends javax.swing.JFrame {
         mnPedido.setText("Pedido");
 
         mnPedidoCad.setText("Cadastrar");
+        mnPedidoCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPedidoCadActionPerformed(evt);
+            }
+        });
         mnPedido.add(mnPedidoCad);
 
         mnPedidoPesq.setText("Pesquisar");
@@ -86,19 +138,42 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(lb_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(lbmostrarnome, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btIconeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lb_pedido)
+                        .addGap(54, 54, 54))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btIconePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))))
+            .addComponent(lb_mostrarTotalPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lb_totalPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lb_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(lb_totalPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lb_mostrarTotalPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btIconeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btIconePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbmostrarnome, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 211, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lb_pedido))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -106,13 +181,30 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnClientePesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnClientePesqActionPerformed
-        // TODO add your handling code here:
+        new ClientePesquisado().setVisible(true);
     }//GEN-LAST:event_mnClientePesqActionPerformed
 
     private void mnClienteCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnClienteCadActionPerformed
         new ClienteCadastro().setVisible(true);
-        System.out.println("asodkjfasogjaogjaoigja");
     }//GEN-LAST:event_mnClienteCadActionPerformed
+
+    private void mnPedidoCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPedidoCadActionPerformed
+        this.setVisible(false);
+        new PedidoCadastro().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_mnPedidoCadActionPerformed
+
+    private void btIconeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIconeClienteActionPerformed
+        this.setVisible(false);
+        new ClienteCadastro().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_btIconeClienteActionPerformed
+
+    private void btIconePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIconePedidoActionPerformed
+        this.setVisible(false);
+        new PedidoCadastro().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_btIconePedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,8 +243,13 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JLabel lbTitulo;
-    private javax.swing.JLabel lbmostrarnome;
+    private javax.swing.JButton btIconeCliente;
+    private javax.swing.JButton btIconePedido;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lb_mostrarTotalPedidos;
+    private javax.swing.JLabel lb_pedido;
+    private javax.swing.JLabel lb_titulo;
+    private javax.swing.JLabel lb_totalPedidos;
     private javax.swing.JMenu mnCliente;
     private javax.swing.JMenuItem mnClienteCad;
     private javax.swing.JMenuItem mnClientePesq;
