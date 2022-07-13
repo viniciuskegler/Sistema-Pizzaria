@@ -33,7 +33,7 @@ public class EnderecoDaoImplTest {
         faker = new Faker();
     }
 
-//    @Test
+    @Test
     public void testSalvar() {
         System.out.println("salvar");
         endereco = new Endereco(null, faker.address().streetName(),
@@ -51,7 +51,7 @@ public class EnderecoDaoImplTest {
 
     }
 
-//    @Test
+    @Test
     public void testAlterar() {
         System.out.println("alterar");
         buscarEnderecoBd();
@@ -79,7 +79,7 @@ public class EnderecoDaoImplTest {
         assertNull(endereco);
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarEnderecoBd();
@@ -89,7 +89,7 @@ public class EnderecoDaoImplTest {
         assertNotNull(endereco.getId());
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorCep() {
         System.out.println("pesquisarPorCep");
         buscarEnderecoBd();
@@ -99,7 +99,7 @@ public class EnderecoDaoImplTest {
         assertNotNull(endereco.getId());
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorEstado() {
         System.out.println("pesquisarPorEstado");
         buscarEnderecoBd();
@@ -109,7 +109,7 @@ public class EnderecoDaoImplTest {
         assertTrue(!enderecos.isEmpty());
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorCidade() {
         System.out.println("pesquisarPorCidade");
         buscarEnderecoBd();

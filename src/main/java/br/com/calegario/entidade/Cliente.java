@@ -15,7 +15,7 @@ public class Cliente extends Pessoa {
     @Column(nullable = false)
     private boolean cupom;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Pedido> pedidos;
     
     public Cliente() {

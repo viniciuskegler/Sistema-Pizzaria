@@ -8,35 +8,42 @@ package br.com.calegario.tela;
 import br.com.calegario.dao.ClienteDao;
 import br.com.calegario.dao.ClienteDaoImpl;
 import br.com.calegario.dao.HibernateUtil;
-import br.com.calegario.entidade.Cliente;
+import br.com.calegario.dao.PedidoDao;
+import br.com.calegario.dao.PedidoDaoImpl;
+import br.com.calegario.entidade.Pedido;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
  *
- * @author Silvio
+ * @author Pericleitonrasta
  */
-public class ClientePesquisado extends javax.swing.JFrame {
+public class PedidoPesqCliente extends javax.swing.JFrame {
 
-    private ClienteDao clienteDao;
-    private Session sessao;
-    private Cliente cliente;
-    private List<Cliente> clientes;
-    private DefaultTableModel tableModel;
     private Principal telaPai;
+    private Session session;
+    private ClienteDao clienteDao;
+    private PedidoDao pedidoDao;
+    private DefaultTableModel tableModel;
+    private List<Pedido> pedidos;
 
-    public ClientePesquisado(Principal telaPai) {
+    public PedidoPesqCliente() {
         initComponents();
-        clienteDao = new ClienteDaoImpl();
-        this.telaPai = telaPai;
     }
 
-    public ClientePesquisado() {
+    public PedidoPesqCliente(Principal telaPai) {
         initComponents();
+        this.telaPai = telaPai;
         clienteDao = new ClienteDaoImpl();
+        pedidoDao = new PedidoDaoImpl();
     }
 
     /**
@@ -48,18 +55,15 @@ public class ClientePesquisado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbTitulo = new javax.swing.JLabel();
-        lbNome = new javax.swing.JLabel();
-        varNome = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
+        varNome = new javax.swing.JTextField();
+        lbTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         varTabela = new javax.swing.JTable();
-        btExcluir = new javax.swing.JButton();
-        btAlterar = new javax.swing.JButton();
-        btVoltar = new javax.swing.JButton();
+        lbNome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Principal");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -67,46 +71,11 @@ public class ClientePesquisado extends javax.swing.JFrame {
             }
         });
 
-        lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Pesquisa de Cliente");
-
-        lbNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbNome.setText("Nome:");
-
         btPesquisar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);
-            }
-        });
-
-        varTabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        varTabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nome", "E-Mail", "Telefone"
-            }
-        ));
-        varTabela.setRowHeight(24);
-        jScrollPane1.setViewportView(varTabela);
-
-        btExcluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btExcluir.setText("Excluir");
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
-            }
-        });
-
-        btAlterar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btAlterar.setText("Alterar");
-        btAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAlterarActionPerformed(evt);
             }
         });
 
@@ -117,6 +86,25 @@ public class ClientePesquisado extends javax.swing.JFrame {
                 btVoltarActionPerformed(evt);
             }
         });
+
+        lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTitulo.setText("Pesquisa de Pedidos do Cliente");
+
+        varTabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        varTabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Numero", "Valor", "Data"
+            }
+        ));
+        varTabela.setRowHeight(24);
+        jScrollPane1.setViewportView(varTabela);
+
+        lbNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbNome.setText("Nome:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +117,7 @@ public class ClientePesquisado extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(varNome, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                        .addComponent(varNome)
                         .addGap(18, 18, 18)
                         .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -137,14 +125,10 @@ public class ClientePesquisado extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(57, 57, 57))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,12 +141,9 @@ public class ClientePesquisado extends javax.swing.JFrame {
                     .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addGap(18, 18, 18)
+                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,41 +155,37 @@ public class ClientePesquisado extends javax.swing.JFrame {
         if (nome.length() < 3) {
             JOptionPane.showMessageDialog(null, "Digite pelo menos 3 letras.");
         } else {
-            sessao = HibernateUtil.abrirConexao();
-            clientes = clienteDao.pesquisarPorNome(nome, sessao);
-            sessao.close();
-            popularTabela();
-        }
-
-    }//GEN-LAST:event_btPesquisarActionPerformed
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        int selecionado = varTabela.getSelectedRow();
-        if (selecionado == -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um cliente.");
-        } else {
-            sessao = HibernateUtil.abrirConexao();
+            session = HibernateUtil.abrirConexao();
             try {
-                clienteDao.excluir(clientes.get(selecionado), sessao);
-                clientes.remove(selecionado);
-                JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
-                tableModel.removeRow(selecionado);
-            } catch (HibernateException e) {
-                System.out.println("Erro ao excluir: " + e.getMessage());
+                pedidos = clienteDao.pesquisarPorNome(nome, session).get(0).getPedidos();
+                popularTabela();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Nome não encontrado no sistema.");
             } finally {
-                sessao.close();
+                session.close();
             }
         }
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
-    }//GEN-LAST:event_btExcluirActionPerformed
+    private void popularTabela() {
+        tableModel = (DefaultTableModel) varTabela.getModel();
+        tableModel.setNumRows(0);
+        pedidos.forEach(atual -> {
+            try {
+                tableModel.addRow(new Object[]{atual.getNumero(), atual.getValorTotal(), formatarData(atual.getDt_pedido())});
+            } catch (ParseException ex) {
+                Logger.getLogger(PedidoPesqCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
 
-    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        int numeroLinha = varTabela.getSelectedRow();
-        Cliente clienteSelecionado = clientes.get(numeroLinha);
-        new ClienteCadastro(clienteSelecionado).setVisible(true);
-        tableModel.setRowCount(0);
-        varNome.setText("");
-    }//GEN-LAST:event_btAlterarActionPerformed
+    private String formatarData(Date dataDB) throws ParseException {
+        String dataAntiga = dataDB.toString();
+        SimpleDateFormat mascaraDtAntiga = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat mascaraDtFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = mascaraDtFormatada.format(mascaraDtAntiga.parse(dataAntiga));
+        return dataFormatada;
+    }
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.dispose();
@@ -219,14 +196,6 @@ public class ClientePesquisado extends javax.swing.JFrame {
         this.dispose();
         telaPai.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
-
-    private void popularTabela() {
-        tableModel = (DefaultTableModel) varTabela.getModel();
-        tableModel.setNumRows(0);
-        clientes.forEach(atual -> {
-            tableModel.addRow(new Object[]{atual.getNome(), atual.getEmail(), atual.getTelefone()});
-        });
-    }
 
     /**
      * @param args the command line arguments
@@ -245,28 +214,28 @@ public class ClientePesquisado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientePesquisado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PedidoPesqCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientePesquisado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PedidoPesqCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientePesquisado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PedidoPesqCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientePesquisado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PedidoPesqCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientePesquisado().setVisible(true);
+                new PedidoPesqCliente().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAlterar;
-    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltar;
     private javax.swing.JScrollPane jScrollPane1;

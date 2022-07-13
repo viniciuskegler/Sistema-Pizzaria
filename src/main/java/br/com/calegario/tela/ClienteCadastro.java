@@ -29,8 +29,9 @@ public class ClienteCadastro extends javax.swing.JFrame {
     private Endereco endereco;
     private Session session;
     private boolean alterar;
-
-    public ClienteCadastro() {
+    private Principal telaPai;
+    
+    public ClienteCadastro(Principal telaPai) {
         initComponents();
         clienteDao = new ClienteDaoImpl();
         varRua.setEditable(false);
@@ -38,8 +39,13 @@ public class ClienteCadastro extends javax.swing.JFrame {
         varCidade.setEditable(false);
         varEstado.setEditable(false);
         alterar = false;
+        this.telaPai = telaPai;
     }
 
+    public ClienteCadastro(){
+        initComponents();
+    }
+    
     public ClienteCadastro(Cliente cliente) {
         initComponents();
         clienteDao = new ClienteDaoImpl();
@@ -86,6 +92,7 @@ public class ClienteCadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Principal");
+        setResizable(false);
 
         lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -473,6 +480,7 @@ public class ClienteCadastro extends javax.swing.JFrame {
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.dispose();
+        telaPai.setVisible(true);
     }//GEN-LAST:event_btVoltarActionPerformed
 
     /**

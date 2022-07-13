@@ -28,7 +28,7 @@ public class UsuarioDaoImplTest {
         faker = new Faker();
     }
 
-//    @Test
+    @Test
     public void testSalvar() {
         System.out.println("salvar");
         usuario = new Usuario(null, faker.name().fullName(), faker.internet().emailAddress(), faker.lorem().word());
@@ -40,7 +40,7 @@ public class UsuarioDaoImplTest {
     }
 
 //    @Test
-    public void testAlterar(){
+    public void testAlterar() {
         System.out.println("alterar");
         buscarUsuarioBd();
         usuario.setNome(usuario.getNome() + faker.lorem().word());
@@ -48,16 +48,16 @@ public class UsuarioDaoImplTest {
         sessao = HibernateUtil.abrirConexao();
         usuarioDao.salvarOuAlterar(usuario, sessao);
         sessao.close();
-        
+
         sessao = HibernateUtil.abrirConexao();
         Usuario usuarioAlt = usuarioDao.pesquisarPorId(usuario.getId(), sessao);
         sessao.close();
-        
+
         assertTrue(usuario.getNome().equals(usuarioAlt.getNome()) && usuario.getLogin().equals(usuarioAlt.getLogin()));
     }
-    
+
 //    @Test
-    public void testExcluir(){
+    public void testExcluir() {
         System.out.println("excluir");
         buscarUsuarioBd();
         sessao = HibernateUtil.abrirConexao();
@@ -66,7 +66,7 @@ public class UsuarioDaoImplTest {
         sessao.close();
         assertNull(usuario);
     }
-    
+
 //    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
@@ -78,7 +78,7 @@ public class UsuarioDaoImplTest {
     }
 
 //    @Test
-    public void testPesquisarPorLogin(){
+    public void testPesquisarPorLogin() {
         System.out.println("pesquisarPorLogin");
         buscarUsuarioBd();
         sessao = HibernateUtil.abrirConexao();
@@ -86,7 +86,17 @@ public class UsuarioDaoImplTest {
         sessao.close();
         assertNotNull(usuario.getId());
     }
-    
+
+    @Test
+    public void testVerificarLoginCadastrado() {
+        System.out.println("pesquisarPorLogin");
+        buscarUsuarioBd();
+        sessao = HibernateUtil.abrirConexao();
+        boolean teste = usuarioDao.verificarLoginCadastrado(usuario.getLogin(), sessao);
+        sessao.close();
+        assertTrue(teste);
+    }
+
     private Usuario buscarUsuarioBd() {
         sessao = HibernateUtil.abrirConexao();
         List<Usuario> usuarios = sessao.createQuery("From Usuario u").getResultList();

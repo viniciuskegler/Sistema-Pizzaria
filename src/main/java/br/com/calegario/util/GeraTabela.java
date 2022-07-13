@@ -5,8 +5,7 @@
  */
 package br.com.calegario.util;
 
-import com.github.javafaker.CreditCardType;
-import com.github.javafaker.Faker;
+import java.text.ParseException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -16,14 +15,7 @@ import javax.persistence.Persistence;
  */
 public class GeraTabela {
 
-    public static void main(String[] args) {
-//        Faker falso = new Faker();
-////        for (int i = 0; i < 10; i++) {
-//            System.out.println(falso.finance().creditCard(CreditCardType.MASTERCARD));
-//            System.out.println(falso.address().city());
-//            System.out.println(falso.address().cityName());
-//            System.out.println(falso.address().fullAddress());
-////        }
+    public static void main(String[] args) throws ParseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzaria_pu");
         emf.close();
     }

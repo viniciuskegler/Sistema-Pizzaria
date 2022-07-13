@@ -29,12 +29,18 @@ public class PedidoCadastro extends javax.swing.JFrame {
     private PedidoDao pedidoDao;
     private Session session;
     private Pedido pedido;
+    private Principal telaPai;
 
-    public PedidoCadastro() {
+    public PedidoCadastro(Principal telaPai) {
         initComponents();
         clienteDao = new ClienteDaoImpl();
         pedidoDao = new PedidoDaoImpl();
         pnPedido.setVisible(false);
+        this.telaPai = telaPai;
+    }
+
+    public PedidoCadastro() {
+        initComponents();
     }
 
     /**
@@ -65,6 +71,11 @@ public class PedidoCadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lb_titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,6 +97,7 @@ public class PedidoCadastro extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        varTelefone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         pnPedido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnPedido.setEnabled(false);
@@ -127,19 +139,16 @@ public class PedidoCadastro extends javax.swing.JFrame {
         });
 
         lb_vlPedido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lb_vlPedido.setText("Valor do Pedido:");
+        lb_vlPedido.setText("Valor do Pedido: R$");
 
         varPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        varPreco.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout pnPedidoLayout = new javax.swing.GroupLayout(pnPedido);
         pnPedido.setLayout(pnPedidoLayout);
         pnPedidoLayout.setHorizontalGroup(
             pnPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(divisor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPedidoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSalvarPedido)
-                .addGap(22, 22, 22))
             .addGroup(pnPedidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +166,11 @@ public class PedidoCadastro extends javax.swing.JFrame {
                         .addComponent(lb_mostrarValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnPedidoLayout.createSequentialGroup()
                         .addComponent(lb_vlPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(varPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSalvarPedido)
+                        .addGap(36, 36, 36)))
                 .addContainerGap())
         );
         pnPedidoLayout.setVerticalGroup(
@@ -182,10 +193,9 @@ public class PedidoCadastro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_vlPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(varPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addComponent(btSalvarPedido)
-                .addContainerGap())
+                    .addComponent(varPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSalvarPedido))
+                .addGap(21, 21, 21))
         );
 
         btVoltar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -206,36 +216,36 @@ public class PedidoCadastro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btVoltar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbNome)
-                        .addGap(5, 5, 5)
-                        .addComponent(varTelefone)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(varTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btPesquisar)
-                        .addGap(28, 28, 28))
+                        .addGap(45, 45, 45))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(btVoltar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lb_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(varTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btPesquisar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btVoltar)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -255,7 +265,7 @@ public class PedidoCadastro extends javax.swing.JFrame {
                 lb_mostrarNumPedidos.setText(String.valueOf(cliente.getPedidos().size()));
                 lb_mostrarValorTotal.setText(String.valueOf(calcularVlTotal(cliente.getPedidos())));
             } catch (Exception e) {
-                System.out.println("Erro ao pesquisar cliente.");
+                JOptionPane.showMessageDialog(null, "Cliente não cadastrado no sistema.");
             } finally {
                 session.close();
             }
@@ -286,12 +296,12 @@ public class PedidoCadastro extends javax.swing.JFrame {
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.dispose();
+        telaPai.setVisible(true);
     }//GEN-LAST:event_btVoltarActionPerformed
 
     private void btSalvarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarPedidoActionPerformed
         if (varPreco.getText().length() != 0) {
             criarPedido();
-            session = HibernateUtil.abrirConexao();
             try {
                 session = HibernateUtil.abrirConexao();
                 pedidoDao.salvarOuAlterar(pedido, session);
@@ -306,11 +316,20 @@ public class PedidoCadastro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btSalvarPedidoActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.dispose();
+        telaPai.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
     private void criarPedido() {
         Double preco = Double.parseDouble(varPreco.getText().replaceAll(",", "."));
         session = HibernateUtil.abrirConexao();
         try {
-            pedido = new Pedido(null, (pedidoDao.pesquisarUltimoNumero(session) + 1), BigDecimal.valueOf(preco), new Date());
+            Integer ultimoNumero = pedidoDao.pesquisarUltimoNumero(session);
+            if (ultimoNumero == null) {
+                ultimoNumero = 0;
+            }
+            pedido = new Pedido(null, (ultimoNumero + 1), BigDecimal.valueOf(preco), new Date());
             pedido.setCliente(cliente);
             cliente.getPedidos().add(pedido);
         } catch (Exception e) {

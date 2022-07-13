@@ -6,16 +6,18 @@
 package br.com.calegario.dao;
 
 import br.com.calegario.entidade.Usuario;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-
-
 
 /**
  *
  * @author vinicius.kegler
  */
-public interface UsuarioDao extends BaseDao<Usuario, Long>{
-    
+public interface UsuarioDao extends BaseDao<Usuario, Long> {
+
     Usuario pesquisarPorLogin(String login, Session sessao);
-    
+
+    boolean verificarLoginCadastrado(String login, Session sessao)
+            throws HibernateException;
+
 }

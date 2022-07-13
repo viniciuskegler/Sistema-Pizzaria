@@ -36,7 +36,7 @@ public class ClienteDaoImplTest {
     public void testSalvar() {
         System.out.println("salvar");
 
-        cliente = new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), GeradorUtil.gerarTelefoneFixo());
+        cliente = new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), GeradorUtil.gerarCelular());
         List<Endereco> enderecos = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             enderecos.add(GeradorTestes.gerarEndereco());
@@ -58,17 +58,17 @@ public class ClienteDaoImplTest {
         sessao = HibernateUtil.abrirConexao();
         clienteDao.salvarOuAlterar(cliente, sessao);
         sessao.close();
-        
+
         sessao = HibernateUtil.abrirConexao();
         Cliente clienteAlt = clienteDao.pesquisarPorId(cliente.getId(), sessao);
         sessao.close();
-        
+
         assertTrue(cliente.getNome().equals(clienteAlt.getNome()) && cliente.getEmail().equals(clienteAlt.getEmail()));
-        
+
     }
 
 //    @Test
-    public void testExcluir(){
+    public void testExcluir() {
         System.out.println("excluir");
         buscarClienteBd();
         sessao = HibernateUtil.abrirConexao();
@@ -77,7 +77,7 @@ public class ClienteDaoImplTest {
         sessao.close();
         assertNull(cliente);
     }
-    
+
 //    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
@@ -98,6 +98,26 @@ public class ClienteDaoImplTest {
         sessao.close();
         assertTrue(!cliPesq.isEmpty());
 
+    }
+
+    @Test
+    public void testVerificarEmailCadastrado() {
+        System.out.println("verificarEmailCadastrado");
+        buscarClienteBd();
+        sessao = HibernateUtil.abrirConexao();
+        boolean teste = clienteDao.verificarEmailCadastrado(cliente.getEmail(), sessao);
+        sessao.close();
+        assertTrue(teste);
+    }
+
+    @Test
+    public void testVerificarTelefoneCadastrado() {
+        System.out.println("verificarTelefoneCadastrado");
+        buscarClienteBd();
+        sessao = HibernateUtil.abrirConexao();
+        boolean teste = clienteDao.verificarTelefoneCadastrado(cliente.getTelefone(), sessao);
+        sessao.close();
+        assertTrue(teste);
     }
 
     public Cliente buscarClienteBd() {

@@ -24,7 +24,7 @@ public class GeradorTestes {
     
     public static Cliente gerarCliente(){
         Faker falso = new Faker();
-        return new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), falso.phoneNumber().cellPhone());
+        return new Cliente(true, null, falso.name().fullName(), falso.internet().emailAddress(), GeradorUtil.gerarCelular());
     }
     
 }

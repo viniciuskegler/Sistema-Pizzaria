@@ -8,13 +8,14 @@ package br.com.calegario.dao;
 import br.com.calegario.entidade.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 /**
  *
  * @author vinicius.kegler
  */
-public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long> 
-                                            implements UsuarioDao{
+public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long>
+        implements UsuarioDao {
 
     @Override
     public Usuario pesquisarPorId(Long id, Session sessao) throws HibernateException {
@@ -25,4 +26,12 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long>
     public Usuario pesquisarPorLogin(String login, Session sessao) {
         return (Usuario) sessao.createQuery("From Usuario u where u.login = :loginHql").setParameter("loginHql", login).getSingleResult();
     }
+
+    @Override
+    public boolean verificarLoginCadastrado(String login, Session sessao) throws HibernateException {
+        Query<Usuario> consulta = sessao.createQuery("from Usuario u where u.login = :loginHql").setParameter("loginHql", login);
+        Usuario usuario = consulta.uniqueResult();
+        return usuario != null;
+    }
+
 }

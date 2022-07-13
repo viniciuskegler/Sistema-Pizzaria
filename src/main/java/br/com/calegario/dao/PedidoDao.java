@@ -6,6 +6,7 @@
 package br.com.calegario.dao;
 
 import br.com.calegario.entidade.Pedido;
+import java.time.LocalDate;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -18,4 +19,6 @@ public interface PedidoDao extends BaseDao<Pedido, Long> {
     Pedido pesquisarPorNumero(int numero, Session sessao);
 
     Integer pesquisarUltimoNumero(Session sessao);
+    
+    List<Pedido> pesquisarIntervalo(Session sessao, LocalDate dtInicio, LocalDate dtFim);
 }

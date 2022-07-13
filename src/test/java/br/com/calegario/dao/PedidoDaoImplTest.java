@@ -10,9 +10,15 @@ import br.com.calegario.entidade.Pedido;
 import br.com.calegario.util.GeradorTestes;
 import com.github.javafaker.Faker;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -36,7 +42,13 @@ public class PedidoDaoImplTest {
     @Test
     public void testSalvar() {
         System.out.println("salvar");
-        pedido = new Pedido(null, faker.number().numberBetween(1, 99999999), BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))), new Date());
+        sessao = HibernateUtil.abrirConexao();
+        Integer ultimoPedido = pedidoDao.pesquisarUltimoNumero(sessao);
+        sessao.close();
+        if (ultimoPedido == null) {
+            ultimoPedido = 0;
+        }
+        pedido = new Pedido(null, (ultimoPedido + 1), BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))), new Date());
         Cliente cliente = GeradorTestes.gerarCliente();
         pedido.setCliente(cliente);
         List<Pedido> pedidos = new ArrayList<>();
@@ -48,25 +60,23 @@ public class PedidoDaoImplTest {
         assertNotNull(pedido.getId());
     }
 
-//    @Test
-    public void testAlterar(){
+    @Test
+    public void testAlterar() {
         System.out.println("alterar");
         buscarPedidoBd();
         pedido.setValorTotal(BigDecimal.valueOf((faker.number().randomDouble(2, 20, 80))));
-//        pedido.setDt_pedido(new Date());
         sessao = HibernateUtil.abrirConexao();
         pedidoDao.salvarOuAlterar(pedido, sessao);
         sessao.close();
-        
+
         sessao = HibernateUtil.abrirConexao();
         Pedido pedidoAlt = pedidoDao.pesquisarPorId(pedido.getId(), sessao);
         sessao.close();
-//        assertTrue(pedido.getDt_pedido() == pedidoAlt.getDt_pedido() && pedido.getValorTotal() == pedidoAlt.getValorTotal());
-        assertTrue(pedido.getValorTotal() == pedidoAlt.getValorTotal());
+        assertTrue(pedido.getValorTotal().equals(pedidoAlt.getValorTotal()));
     }
-    
+
 //    @Test
-    public void testExcluir(){
+    public void testExcluir() {
         System.out.println("excluir");
         buscarPedidoBd();
         sessao = HibernateUtil.abrirConexao();
@@ -74,10 +84,10 @@ public class PedidoDaoImplTest {
         pedido = pedidoDao.pesquisarPorId(pedido.getId(), sessao);
         sessao.close();
         assertNull(pedido);
-    
+
     }
-    
-//    @Test
+
+    @Test
     public void testPesquisarPorId() {
         System.out.println("pesquisarPorId");
         buscarPedidoBd();
@@ -88,7 +98,7 @@ public class PedidoDaoImplTest {
 
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorNumero() {
         System.out.println("pesquisarPorNumero");
         buscarPedidoBd();
@@ -97,9 +107,9 @@ public class PedidoDaoImplTest {
         sessao.close();
         assertNotNull(pedido);
     }
-    
+
     @Test
-    public void testPesquisarUltimoNumero(){
+    public void testPesquisarUltimoNumero() {
         System.out.println("pesquisarUltimoNumero");
         buscarPedidoBd();
         sessao = HibernateUtil.abrirConexao();
@@ -107,7 +117,21 @@ public class PedidoDaoImplTest {
         sessao.close();
         assertNotNull(maiorNumero);
     }
-    
+
+    @Test
+    public void testPesquisarIntervalo() {
+        System.out.println("pesquisarIntervalo");
+        buscarPedidoBd();
+        sessao = HibernateUtil.abrirConexao();
+        String textoDataInicio = ("20/02/2020");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDateInicio = LocalDate.parse(textoDataInicio, formatter);
+        LocalDate localDateFim = LocalDate.now();
+        List<Pedido> pedidos = pedidoDao.pesquisarIntervalo(sessao, localDateInicio, localDateFim);
+        sessao.close();
+        assertTrue(!pedidos.isEmpty());
+    }
+
     private Pedido buscarPedidoBd() {
         sessao = HibernateUtil.abrirConexao();
         List<Pedido> pedidos = sessao.createQuery("From Pedido P").getResultList();

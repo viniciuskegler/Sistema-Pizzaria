@@ -7,9 +7,12 @@ package br.com.calegario.dao;
 
 import br.com.calegario.entidade.Pedido;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+
 
 public class PedidoDaoImpl extends BaseDaoImpl<Pedido, Long> implements PedidoDao, Serializable {
 
@@ -26,6 +29,14 @@ public class PedidoDaoImpl extends BaseDaoImpl<Pedido, Long> implements PedidoDa
     @Override
     public Integer pesquisarUltimoNumero(Session sessao) {
         return (Integer) sessao.createQuery("select max(p.numero) from Pedido p").getResultList().get(0);
+    }
+
+    @Override
+    public List<Pedido> pesquisarIntervalo(Session sessao, LocalDate dtInicio, LocalDate dtFim) {
+        Date dtInicioHql = Date.valueOf(dtInicio);
+        Date dtFimHql = Date.valueOf(dtFim);
+        return (List<Pedido>) sessao.createQuery("from Pedido p join fetch p.cliente where p.dt_pedido between :dtInicioHql and :dtFimHql")
+                .setParameter("dtInicioHql", dtInicioHql).setParameter("dtFimHql", dtFimHql).getResultList();
     }
 
 }
