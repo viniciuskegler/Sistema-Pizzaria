@@ -181,7 +181,7 @@ public class PedidoPesqData extends javax.swing.JFrame {
         tableModel.setNumRows(0);
         pedidos.forEach(atual -> {
             try {
-                tableModel.addRow(new Object[]{atual.getCliente().getNome(), atual.getValorTotal(), formatarData(atual.getDt_pedido())});
+                tableModel.addRow(new Object[]{atual.getCliente().getNome(), atual.getNumero(), atual.getValorTotal(), formatarData(atual.getDt_pedido())});
             } catch (ParseException ex) {
                 Logger.getLogger(PedidoPesqCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
